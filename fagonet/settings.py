@@ -142,6 +142,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -153,5 +157,11 @@ USE_TZ = True
 JAZZMIN_SETTINGS = {
     'site_brand' : "Fagonet",
     "show_ui_builder": True,
-
+    "site_logo": "assets/imgs/logo.png",
+    
+}
+JAZZMIN_UI_TWEAKS = {
+    "accent": "accent-lightblue",
+    "navbar": "navbar-info navbar-dark",
+    "sidebar": "sidebar-dark-info",
 }
