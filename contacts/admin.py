@@ -12,13 +12,24 @@
 # admin.site.register(Contact, ContactsAdmin)
 from django.contrib import admin
 from admin_list_charts.admin import ListChartMixin
-from .models import Contact
+from .models import Contact, ServiceContact, SolutionContact
 
 class ContactAdmin(ListChartMixin,admin.ModelAdmin):
     list_display = ["name", "email", "message", "date_sent"]
     date_hierarchy = "date_sent"
     search_fields = ["name","email","message","date_sent"]
-    # change_list_template = "admin/contacts_list_admin.html"
-
-    
 admin.site.register(Contact, ContactAdmin)
+
+class ServiceContactAdmin(ListChartMixin,admin.ModelAdmin):
+    list_display = ["name", "email","service", "message", "date_sent"]
+    date_hierarchy = "date_sent"
+    search_fields = ["name","email","message","date_sent"]
+    list_filter = ['service',]
+admin.site.register(ServiceContact, ServiceContactAdmin)
+
+class SolutionContactAdmin(ListChartMixin,admin.ModelAdmin):
+    list_display = ["name", "email","solution", "message", "date_sent"]
+    date_hierarchy = "date_sent"
+    search_fields = ["name","email","message","date_sent"]  
+    list_filter = ["solution"]
+admin.site.register(SolutionContact, SolutionContactAdmin)
