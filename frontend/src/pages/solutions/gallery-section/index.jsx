@@ -1,48 +1,114 @@
+// import LazyLoad from 'react-lazyload';
+// import img1 from '../../../assets/images/gallery/header-1.e29951c6bf7cdf15c303.png';
+// import img2 from '../../../assets/images/gallery/header-2.15fda7c06337e76eaeb0.png';
+// import img3 from '../../../assets/images/gallery/header-6.987988888e628d2df2fd.png';
+// import img4 from '../../../assets/images/gallery/header-7.c4c8a78b8f66aa9524dd.png';
+// import { useTranslation } from 'react-i18next';
+// function Gallery() {
+//   const { t } = useTranslation();
+//   const lazyLoadOptions = {
+//     offset: 100,
+//     once: true,
+//   };
+//   return (
+//     <section className='container m-auto rounded-2xl Up'>
+//       <h3 className='mx-auto my-8 xl:text-[40px] md:text-[36px] text-[32px] text-center font-bold tracking-[18px] leading-[46.96px] uppercase Scale'>
+//         {t('gallery')}
+//       </h3>
+//       <div className='flex-col lg:flex-row flex flex-wrap items-center p-8'>
+//         <LazyLoad
+//           className='gallery w-4/5 m-auto lg:w-1/2 lg:m-0 px-4 py-8 lg:p-8'
+//           {...lazyLoadOptions}
+//         >
+//           <img className='Scale' src={img1} alt={img1} />
+//         </LazyLoad>
+//         <LazyLoad
+//           className='gallery  w-4/5 m-auto lg:w-1/2 lg:m-0 px-4 py-8 lg:p-8'
+//           {...lazyLoadOptions}
+//         >
+//           <img className='Scale' src={img2} alt={img2} />
+//         </LazyLoad>
+//         <LazyLoad
+//           className='gallery  w-4/5 m-auto lg:w-1/2 lg:m-0 px-4 py-8 lg:p-8'
+//           {...lazyLoadOptions}
+//         >
+//           <img className='Scale' src={img3} alt={img3} />
+//         </LazyLoad>
+//         <LazyLoad
+//           className='gallery  w-4/5 m-auto lg:w-1/2 lg:m-0 px-4 py-8 lg:p-8'
+//           {...lazyLoadOptions}
+//         >
+//           <img className='Scale' src={img4} alt={img4} />
+//         </LazyLoad>
+//       </div>
+//     </section>
+//   );
+// }
+
+// export default Gallery;
+import { useEffect, useState } from 'react';
 import LazyLoad from 'react-lazyload';
-import img1 from '../../../assets/images/gallery/header-1.e29951c6bf7cdf15c303.png';
-import img2 from '../../../assets/images/gallery/header-2.15fda7c06337e76eaeb0.png';
-import img3 from '../../../assets/images/gallery/header-6.987988888e628d2df2fd.png';
-import img4 from '../../../assets/images/gallery/header-7.c4c8a78b8f66aa9524dd.png';
+import axios from 'axios'; // Import axios for API requests
 import { useTranslation } from 'react-i18next';
-function Gallery() {
+
+function Gallery({ solutionId }) {
   const { t } = useTranslation();
-  const lazyLoadOptions = {
-    offset: 100,
-    once: true,
-  };
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchGalleryImages = async () => {
+      if (!solutionId) {
+        setError('No solution ID provided.');
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/solutions/${solutionId}/gallery/`);
+        setGalleryImages(response.data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGalleryImages();
+  }, [solutionId]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error loading gallery images: {error.message}</p>;
+
   return (
     <section className='container m-auto rounded-2xl Up'>
       <h3 className='mx-auto my-8 xl:text-[40px] md:text-[36px] text-[32px] text-center font-bold tracking-[18px] leading-[46.96px] uppercase Scale'>
         {t('gallery')}
       </h3>
       <div className='flex-col lg:flex-row flex flex-wrap items-center p-8'>
-        <LazyLoad
-          className='gallery w-4/5 m-auto lg:w-1/2 lg:m-0 px-4 py-8 lg:p-8'
-          {...lazyLoadOptions}
-        >
-          <img className='Scale' src={img1} alt={img1} />
-        </LazyLoad>
-        <LazyLoad
-          className='gallery  w-4/5 m-auto lg:w-1/2 lg:m-0 px-4 py-8 lg:p-8'
-          {...lazyLoadOptions}
-        >
-          <img className='Scale' src={img2} alt={img2} />
-        </LazyLoad>
-        <LazyLoad
-          className='gallery  w-4/5 m-auto lg:w-1/2 lg:m-0 px-4 py-8 lg:p-8'
-          {...lazyLoadOptions}
-        >
-          <img className='Scale' src={img3} alt={img3} />
-        </LazyLoad>
-        <LazyLoad
-          className='gallery  w-4/5 m-auto lg:w-1/2 lg:m-0 px-4 py-8 lg:p-8'
-          {...lazyLoadOptions}
-        >
-          <img className='Scale' src={img4} alt={img4} />
-        </LazyLoad>
+        {galleryImages.length > 0 ? (
+          galleryImages.map((image, index) => (
+            <LazyLoad
+              key={index}
+              className='gallery w-4/5 m-auto lg:w-1/2 lg:m-0 px-4 py-8 lg:p-8'
+              offset={100}
+              once={true}
+            >
+              <img
+                className='Scale'
+                src={image.image} // Use dynamic image URL
+                alt={`Gallery Image ${index}`}
+              />
+            </LazyLoad>
+          ))
+        ) : (
+          <p>No gallery images available.</p>
+        )}
       </div>
     </section>
   );
 }
 
 export default Gallery;
+

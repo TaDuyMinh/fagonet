@@ -43,10 +43,12 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
+
             <Route path='solutions'>
-              <Route index element={<SolutionsList />} />
-              <Route path=':link' element={<SolutionDetail />} />
+               <Route index element={<SolutionsList />} />
+                 <Route path=':id' element={<SolutionDetail />} /> 
             </Route>
+            
             <Route path='services'>
               <Route index element={<ServicesList />} />
               <Route path=':link' element={<ServiceDetail />} />
