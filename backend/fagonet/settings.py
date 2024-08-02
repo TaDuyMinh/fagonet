@@ -77,7 +77,7 @@ ROOT_URLCONF = 'fagonet.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],  
+        'DIRS': [os.path.join(BASE_DIR, 'frontend', 'build')],
         'APP_DIRS': True, 
         'OPTIONS': {
             'context_processors': [
@@ -169,4 +169,12 @@ JAZZMIN_UI_TWEAKS = {
     "accent": "accent-lightblue",
     "navbar": "navbar-info navbar-dark",
     "sidebar": "sidebar-dark-info",
+}
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
 }

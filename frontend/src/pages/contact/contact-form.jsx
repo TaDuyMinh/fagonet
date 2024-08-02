@@ -26,7 +26,7 @@ function ContactForm() {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/contacts/create/', contactForm);
+      const response = await axios.post('http://127.0.0.1:8000/api/contacts/create/', contactForm);
       setStatusMessage(response.data.message);
       setContactForm({
         name: '',
@@ -108,3 +108,4 @@ function ContactForm() {
 }
 
 export default ContactForm;
+
