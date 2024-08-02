@@ -1,1 +1,7 @@
 .env
+
+# Media files
+backend/media/
+
+# Static files (if you also have a static directory)
+backend/static/
