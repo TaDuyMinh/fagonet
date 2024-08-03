@@ -114,36 +114,23 @@ import NavServices from './nav-services';
 import serviceDetailImg from '../../assets/images/services/service-detail-img.png';
 import line98 from '../../assets/images/services/Line98.png';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
 
 function ServiceDetail() {
     const { t } = useTranslation();
     const { id } = useParams();
     const { dataServices } = useContext(ServicesContext);
     const [serviceDetail, setServiceDetail] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchServiceDetail = async () => {
-            try {
-                const response = await axios.get(`http://127.0.0.1:8000/api/services/${id}/`);
-                setServiceDetail(response.data);
-            } catch (err) {
-                setError(err);
-            } finally {
-                setLoading(false);
-            }
-        };
+        const service = dataServices.find(service => service.id === parseInt(id));
+        setServiceDetail(service);
+    }, [id, dataServices]);
 
-        fetchServiceDetail();
-    }, [id]);
     const lazyLoadOptions = {
       offset: 100,
       once: true,
     };
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error loading service details.</p>;
+
     if (!serviceDetail) return <p>No service details found.</p>; // Handle case if no service detail is found
 
     return (
@@ -217,3 +204,4 @@ function ServiceDetail() {
 }
 
 export default ServiceDetail;
+

@@ -20,7 +20,7 @@ function NavServices() {
                   : 'text-[20px] leading-[23.48px]'
               }
               key={index}
-              to={`../${service.link}`}
+              to={`http://localhost:5173/services/${service.id}`}
             >
               <h5 className='font-bold'>{service.title}</h5>
               <i className='fa fa-angle-right font-bold services'></i>

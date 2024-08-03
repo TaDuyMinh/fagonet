@@ -93,36 +93,25 @@
 // }
 
 // export default SolutionsList;
-
-import { useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LazyLoad from 'react-lazyload';
-import axios from 'axios';
+import { SolutionsContext } from './hooks/solutions-context'; // Import your SolutionsContext
 import Spinner from '../../components/spinner/index';
 
 function SolutionsList() {
   const { t } = useTranslation();
-  const [solutions, setSolutions] = useState([]);
+  const { dataSolutions } = useContext(SolutionsContext); // Use the context
   const [hoverSolutions, setHoverSolutions] = useState(null);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    async function fetchSolutions() {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/api/solutions/');
-        setSolutions(response.data);
-      } catch (error) {
-        setError('There was an error fetching the solutions!');
-        console.error('Error fetching solutions:', error);
-      }
-    }
+  // Check if dataSolutions is empty or undefined
+  if (!dataSolutions || dataSolutions.length === 0) {
+    return <Spinner />; // Show spinner if no data
+  }
 
-    fetchSolutions();
-  }, []);
-
-  const solutionElements = solutions.map((solution) => (
-    <Link key={solution.id} to={`http://localhost:5173/solutions/`+ solution.id}>
+  const solutionElements = dataSolutions.map((solution) => (
+    <Link key={solution.id} to={`http://localhost:5173/solutions/${solution.id}`}>
       <div
         className={`relative Scale ${hoverSolutions === solution.id ? 'hoverSolutions' : ''}`}
         onMouseOver={() => setHoverSolutions(solution.id)}
@@ -149,10 +138,6 @@ function SolutionsList() {
     </Link>
   ));
 
-  if (error) {
-    return <div>{error}</div>;
-  }
-
   return (
     <main className='w-4/5 m-auto'>
       <h3 className='my-8 lg:my-0 xl:text-[80px] lg:text-[64px] md:text-[52px] text-[32px] text-center md:tracking-[16px] tracking-[12px] font-bold uppercase Scale'>
@@ -167,4 +152,3 @@ function SolutionsList() {
 }
 
 export default SolutionsList;
-

@@ -63,8 +63,7 @@
 //   );
 // }
 // export default SolutionDetail;
-
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import LazyLoad from 'react-lazyload';
 import DownLoadDataSheet from './data-sheet/data-sheet';
@@ -72,31 +71,18 @@ import Page404 from '../404/index';
 import Gallery from './gallery-section/index';
 import defaultImg from '../../assets/images/solutions/default-img.png';
 import backImg from '../../assets/images/solutions/back.png';
-import axios from 'axios'; // Import axios for API requests
+import { SolutionsContext } from './hooks/solutions-context'; // Import the context
 
 function SolutionDetail() {
   const { id } = useParams(); // Assuming the route parameter is 'id'
+  const { dataSolutions } = useContext(SolutionsContext); // Use the context
   const [solutionDetail, setSolutionDetail] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchSolutionDetail = async () => {
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/solutions/${id}/`);
-        setSolutionDetail(response.data);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const solution = dataSolutions.find(solution => solution.id === parseInt(id));
+    setSolutionDetail(solution);
+  }, [id, dataSolutions]);
 
-    fetchSolutionDetail();
-  }, [id]);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading solution details.</p>;
   if (!solutionDetail) return <Page404 />;
 
   return (
@@ -153,4 +139,3 @@ function SolutionDetail() {
 }
 
 export default SolutionDetail;
-

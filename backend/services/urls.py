@@ -8,5 +8,4 @@ router.register(r'services', ServiceViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),  
-
 ] 

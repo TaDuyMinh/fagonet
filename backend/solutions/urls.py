@@ -8,5 +8,4 @@ router.register(r'solutions', SolutionViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),  
-    path('api/solutions/<int:solution_id>/gallery/', SolutionGalleryViewSet.as_view({'get': 'list'}), name='solution-gallery'),
 ] 

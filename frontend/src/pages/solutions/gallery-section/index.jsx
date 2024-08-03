@@ -46,40 +46,32 @@
 // }
 
 // export default Gallery;
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import LazyLoad from 'react-lazyload';
-import axios from 'axios'; // Import axios for API requests
 import { useTranslation } from 'react-i18next';
+import { SolutionsContext } from '../hooks/solutions-context'; // Import the context
 
 function Gallery({ solutionId }) {
   const { t } = useTranslation();
+  const { dataSolutions } = useContext(SolutionsContext); // Use the context
   const [galleryImages, setGalleryImages] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchGalleryImages = async () => {
-      if (!solutionId) {
-        setError('No solution ID provided.');
-        setLoading(false);
-        return;
-      }
+    if (!solutionId) {
+      setError('No solution ID provided.');
+      return;
+    }
 
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/solutions/${solutionId}/gallery/`);
-        setGalleryImages(response.data);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const solution = dataSolutions.find(solution => solution.id === parseInt(solutionId));
+    if (solution && solution.gallery) {
+      setGalleryImages(solution.gallery);
+    } else {
+      setError('Gallery images not found.');
+    }
+  }, [solutionId, dataSolutions]);
 
-    fetchGalleryImages();
-  }, [solutionId]);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading gallery images: {error.message}</p>;
+  if (error) return <p>Error loading gallery images: {error}</p>;
 
   return (
     <section className='container m-auto rounded-2xl Up'>
@@ -111,4 +103,3 @@ function Gallery({ solutionId }) {
 }
 
 export default Gallery;
-

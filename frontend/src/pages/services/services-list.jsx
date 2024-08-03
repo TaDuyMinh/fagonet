@@ -62,34 +62,18 @@
 // }
 // export default ServicesList;
 
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LazyLoad from 'react-lazyload';
-import axios from 'axios';
 import { ServicesContext } from './hooks/services-context';
 import introServicesImg from '../../assets/images/services/Icon04-2.png';
 import Spinner from '../../components/spinner';
 
 function ServicesList() {
   const { t } = useTranslation();
-  // const { dataServices } = useContext(ServicesContext); // No longer needed
-  const [services, setServices] = useState([]);
+  const { dataServices } = useContext(ServicesContext); // Use the context
   const [hoverServices, setHoverServices] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Fetch data from the backend API
-    axios.get('http://127.0.0.1:8000/api/services/')
-      .then(response => {
-        setServices(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('There was an error fetching the services!', error);
-        setLoading(false);
-      });
-  }, []);
 
   const lazyLoadOptions = {
     offset: 100,
@@ -97,7 +81,8 @@ function ServicesList() {
     placeholder: <Spinner />,
   };
 
-  if (loading) {
+  // If dataServices is empty or not defined, show a loading spinner
+  if (!dataServices || dataServices.length === 0) {
     return <Spinner />;
   }
 
@@ -111,9 +96,9 @@ function ServicesList() {
         />
       </LazyLoad>
       <div className='lg:w-1/2 services-list'>
-        {services.map((service, index) => (
+        {dataServices.map((service, index) => (
           <Link
-            to={`http://localhost:5173/services/`+ service.id}
+            to={`http://localhost:5173/services/${service.id}`} // Use the service id for routing
             key={service.id}
             className={`relative bg-boldBlue Scale ${
               hoverServices === index ? 'hoverServices' : ''
@@ -128,7 +113,7 @@ function ServicesList() {
                 src={
                   hoverServices === index
                     ? service.intro_image
-                    : service.intro_image
+                    : service.intro_image // Assuming both images are the same
                 }
                 alt={service.title}
               />
@@ -147,3 +132,4 @@ function ServicesList() {
 }
 
 export default ServicesList;
+
