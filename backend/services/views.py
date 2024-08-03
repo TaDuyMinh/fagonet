@@ -1,3 +1,9 @@
-from django.shortcuts import render
+# views.py
+from rest_framework import viewsets
+from .models import Service
+from .serializers import ServiceSerializer
 
-# Create your views here.
+class ServiceViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Service.objects.filter(is_active=True)  # Filter based on your requirements
+    serializer_class = ServiceSerializer
+
