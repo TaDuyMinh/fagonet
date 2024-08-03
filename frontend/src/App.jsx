@@ -48,7 +48,13 @@ function App() {
                <Route index element={<SolutionsList />} />
                  <Route path=':id' element={<SolutionDetail />} /> 
             </Route>
-            
+
+
+            <Route path='services'>
+               <Route index element={<ServicesList />} />
+                 <Route path=':id' element={<ServiceDetail />} /> 
+            </Route>
+
             <Route path='services'>
               <Route index element={<ServicesList />} />
               <Route path=':link' element={<ServiceDetail />} />

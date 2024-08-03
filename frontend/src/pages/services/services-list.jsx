@@ -113,7 +113,7 @@ function ServicesList() {
       <div className='lg:w-1/2 services-list'>
         {services.map((service, index) => (
           <Link
-            to={`${service.link}`}
+            to={`http://localhost:5173/services/`+ service.id}
             key={service.id}
             className={`relative bg-boldBlue Scale ${
               hoverServices === index ? 'hoverServices' : ''

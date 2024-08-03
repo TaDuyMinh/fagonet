@@ -22,7 +22,7 @@ function NavServices() {
               key={index}
               to={`../${service.link}`}
             >
-              <h5 className='font-bold'>{service.intro}</h5>
+              <h5 className='font-bold'>{service.title}</h5>
               <i className='fa fa-angle-right font-bold services'></i>
             </NavLink>
           );

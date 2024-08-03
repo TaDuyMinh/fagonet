@@ -1,15 +1,30 @@
-import { createContext, useEffect, useState } from 'react';
-import DataServices from '../data/data-services';
+import React, { createContext, useEffect, useState } from 'react';
+import axios from 'axios';
+
 export const ServicesContext = createContext();
+
 export const ServicesProvider = ({ children }) => {
-  const { data } = DataServices();
   const [dataServices, setDataServices] = useState([]);
-  const lang = window.localStorage.getItem('language') || 'vi';
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    setDataServices(data);
-  }, [lang]);
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/services/');
+        setDataServices(response.data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
+
   return (
-    <ServicesContext.Provider value={{ dataServices }}>
+    <ServicesContext.Provider value={{ dataServices, loading, error }}>
       {children}
     </ServicesContext.Provider>
   );
