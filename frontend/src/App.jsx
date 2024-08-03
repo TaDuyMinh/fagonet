@@ -43,21 +43,13 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
-
             <Route path='solutions'>
                <Route index element={<SolutionsList />} />
                  <Route path=':id' element={<SolutionDetail />} /> 
             </Route>
-
-
             <Route path='services'>
                <Route index element={<ServicesList />} />
                  <Route path=':id' element={<ServiceDetail />} /> 
-            </Route>
-
-            <Route path='services'>
-              <Route index element={<ServicesList />} />
-              <Route path=':link' element={<ServiceDetail />} />
             </Route>
             <Route path='blogs' element={<Blogs />}></Route>
             <Route path='news'>
