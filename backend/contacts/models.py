@@ -15,3 +15,10 @@ class Contact(models.Model):
 
     class Meta:
         ordering = ['-date_sent']  # Orders messages with the most recent first
+
+    def contact_about(self):
+        if self.solution:
+            return f"Solution: {self.solution.title}"
+        elif self.service:
+            return f"Service: {self.service.title}"
+        return "General"
