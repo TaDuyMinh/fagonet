@@ -4,5 +4,5 @@ from .models import Service
 from .serializers import ServiceSerializer
 
 class ServiceViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Service.objects.filter(is_active=True)  # Filter based on your requirements
+    queryset = Service.objects.filter(is_active=True)  
     serializer_class = ServiceSerializer

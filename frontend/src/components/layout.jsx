@@ -8,7 +8,9 @@ function Layout() {
   return (
     <div className='web'>
       <Suspense fallback={<Spinner />}>
-        <Nav />
+      <div style ={{marginBottom :'100px'}}>
+          <Nav />
+          </div>
         <Outlet />
         <Footer />
         <ScrollPage />

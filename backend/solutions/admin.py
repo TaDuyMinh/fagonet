@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Solution, SolutionDetail, SolutionGallery
 
-
 @admin.action(description="Activate selected solution(s)")
 def activate_solutions(modeladmin, request, queryset):
     queryset.update(is_active=True)
@@ -41,4 +40,3 @@ class SolutionAdmin(admin.ModelAdmin):
     #     return actions
 
 admin.site.register(Solution, SolutionAdmin)
-

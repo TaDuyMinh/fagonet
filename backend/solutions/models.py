@@ -31,4 +31,3 @@ class SolutionGallery(models.Model):
 
 def __str__(self):
     return f"Gallery for {self.solution.title}"
-

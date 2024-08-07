@@ -47,19 +47,19 @@ function OurSolutions() {
               onTouchEnd={() => setHoverSolutions(null)}
               onClick={handleClick}
               to={{
-                pathname: `/solutions/${solution.url}`,
+                pathname: `/solutions/${solution.id}`,
               }}
             >
               <LazyLoad className='h-1/2' offset={100} once>
                 <img
                   className='w-[40px] mr-auto Scale'
                   src={
-                    hoverSolutions === solution.id ? vectorHoverImg : vectorImg
+                    hoverSolutions === solution.id ? solution.intro_image : solution.intro_image
                   }
                   alt='vector-img'
                 />
               </LazyLoad>
-              <h4 className='h-1/2 my-2 text-start'>{solution.title}</h4>
+              <h4 className='h-1/2 my-2 text-start'>{solution.intro}</h4>
             </Link>
           );
         })}

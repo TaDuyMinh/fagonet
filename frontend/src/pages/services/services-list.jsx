@@ -113,7 +113,7 @@ function ServicesList() {
                 src={
                   hoverServices === index
                     ? service.intro_image
-                    : service.intro_image // Assuming both images are the same
+                    : service.intro_image 
                 }
                 alt={service.title}
               />

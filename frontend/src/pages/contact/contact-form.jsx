@@ -81,13 +81,13 @@ function ContactForm() {
       ></textarea>
       <div className='my-8 flex items-center'>
         <div className='flex items-center'>
-          <input
+          {/* <input
             type='checkbox'
             id='terms'
             name='terms'
             checked={contactForm.terms}
             onChange={handleChangeContact}
-          />
+          /> */}
           <label
             className='text-[16px] font-normal text-white mx-4'
             htmlFor='terms'
