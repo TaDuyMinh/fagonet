@@ -2,13 +2,15 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
-function ContactForm() {
+function ContactForm({ serviceId = null, solutionId = null }) {
   const { t } = useTranslation();
   const [contactForm, setContactForm] = useState({
     name: '',
     email: '',
     message: '',
     terms: false,
+    service: serviceId,
+    solution: solutionId,
   });
 
   const [statusMessage, setStatusMessage] = useState('');
@@ -33,6 +35,8 @@ function ContactForm() {
         email: '',
         message: '',
         terms: false,
+        service: serviceId,
+        solution: solutionId,
       });
     } catch (error) {
       if (error.response) {
@@ -88,12 +92,12 @@ function ContactForm() {
             checked={contactForm.terms}
             onChange={handleChangeContact}
           /> */}
-          <label
+          {/* <label
             className='text-[16px] font-normal text-white mx-4'
             htmlFor='terms'
           >
-            {t('term')}
-          </label>
+            {t('term')} */}
+          {/* </label> */}
         </div>
         <button
           className='w-[178px] bg-blue text-white font-bold p-4 rounded-[25px]'
@@ -108,4 +112,3 @@ function ContactForm() {
 }
 
 export default ContactForm;
-

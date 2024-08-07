@@ -7,6 +7,7 @@ import serviceDetailImg from '../../assets/images/services/service-detail-img.pn
 import line98 from '../../assets/images/services/Line98.png';
 import { useTranslation } from 'react-i18next';
 import ContactForm from '../contact/contact-form';
+
 function ServiceDetail() {
     const { t } = useTranslation();
     const { id } = useParams();
@@ -19,11 +20,11 @@ function ServiceDetail() {
     }, [id, dataServices]);
 
     const lazyLoadOptions = {
-      offset: 100,
-      once: true,
+        offset: 100,
+        once: true,
     };
 
-    if (!serviceDetail) return <p>No service details found.</p>; // Handle case if no service detail is found
+    if (!serviceDetail) return <p>No service details found.</p>;
 
     return (
         <section className='w-4/5 mx-auto mt-8 mb-32'>
@@ -93,11 +94,10 @@ function ServiceDetail() {
                 
             </div>
             <div style={{display: 'flex', justifyContent: 'center'}}>
-            <ContactForm />
+                <ContactForm serviceId={serviceDetail.id} />
             </div>
         </section>
     );
 }
 
 export default ServiceDetail;
-

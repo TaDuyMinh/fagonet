@@ -71,7 +71,7 @@ function SolutionDetail() {
       </section>
       <Gallery solutionId={id} />
       <div style={{display: 'flex', justifyContent: 'center'}}>
-      <ContactForm/>
+      <ContactForm solutionId={solutionDetail.id} />
       </div>      
     </main>
   );
