@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import  Service, ServiceDeploymentStep, ServiceCompetitiveAdvantage
 
+
 @admin.action(description="Activate selected service(s)")
 def activate_services(modeladmin, request, queryset):
     queryset.update(is_active=True)

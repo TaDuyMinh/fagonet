@@ -34,7 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'jazzmin',
-    
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -166,7 +166,7 @@ TIME_ZONE = 'Asia/Ho_Chi_Minh'
 USE_TZ = True
 
 JAZZMIN_SETTINGS = {
-    'site_brand' : "Fagonet",
+    'site_brand' : "Lumisec",
     "show_ui_builder": True,
     "site_logo": "assets/imgs/logo.png",
     
@@ -176,6 +176,7 @@ JAZZMIN_UI_TWEAKS = {
     "navbar": "navbar-info navbar-dark",
     "sidebar": "sidebar-dark-info",
 }
+
 
 CORS_ORIGIN_ALLOW_ALL = True
 
