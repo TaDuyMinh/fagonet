@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
+
 function DownLoadDataSheet({ filePath, fileName }) {
   const { t } = useTranslation();
+
   const handleDownload = async () => {
     try {
       const res = await fetch(filePath);
@@ -12,11 +14,12 @@ function DownLoadDataSheet({ filePath, fileName }) {
         link.setAttribute('download', fileName);
         document.body.appendChild(link);
         link.click();
+        document.body.removeChild(link);  // Clean up the DOM
       } else {
-        throw new Error('Failed to fetch the PDF file.');
+        throw new Error('Failed to fetch the file.');
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

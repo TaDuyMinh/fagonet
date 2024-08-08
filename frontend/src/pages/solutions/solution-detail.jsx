@@ -6,7 +6,7 @@ import Page404 from '../404/index';
 import Gallery from './gallery-section/index';
 import defaultImg from '../../assets/images/solutions/default-img.png';
 import backImg from '../../assets/images/solutions/back.png';
-import { SolutionsContext } from './hooks/solutions-context'; // Import the context
+import { SolutionsContext } from './hooks/solutions-context';
 import ContactForm from '../contact/contact-form';
 
 function SolutionDetail() {
@@ -15,7 +15,7 @@ function SolutionDetail() {
   const [solutionDetail, setSolutionDetail] = useState(null);
 
   useEffect(() => {
-    const solution = dataSolutions.find(solution => solution.id === parseInt(id));
+    const solution = dataSolutions.find((solution) => solution.id === parseInt(id));
     setSolutionDetail(solution);
   }, [id, dataSolutions]);
 
@@ -41,7 +41,10 @@ function SolutionDetail() {
           alt={`${solutionDetail.title}-intro-img`}
         />
       )}
-      <DownLoadDataSheet filePath={solutionDetail.dataSheet || ''} fileName={solutionDetail.dataSheetName || 'No File'} />
+      <DownLoadDataSheet
+        filePath={solutionDetail.datafile || ''}
+        fileName={solutionDetail.title +" data" || 'No File'}
+      />
       <section className='my-16 Up'>
         {solutionDetail.details && solutionDetail.details.length > 0 ? (
           solutionDetail.details.map((content, index) => (
@@ -58,9 +61,7 @@ function SolutionDetail() {
                   <h4 className='xl:text-[28px] lg:text-[24px] md:text-[20px] text-blue'>
                     {content.title || 'No Title'}
                   </h4>
-                  <p className='my-4'>
-                    {content.content || 'No Content'}
-                  </p>
+                  <p className='my-4'>{content.content || 'No Content'}</p>
                 </div>
               </div>
             </div>
@@ -70,9 +71,9 @@ function SolutionDetail() {
         )}
       </section>
       <Gallery solutionId={id} />
-      <div style={{display: 'flex', justifyContent: 'center'}}>
-      <ContactForm solutionId={solutionDetail.id} />
-      </div>      
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <ContactForm solutionId={solutionDetail.id} />
+      </div>
     </main>
   );
 }

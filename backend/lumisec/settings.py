@@ -167,7 +167,7 @@ USE_TZ = True
 
 JAZZMIN_SETTINGS = {
     'site_brand' : "Fagonet",
-    # "show_ui_builder": True,
+    "show_ui_builder": True,
     "site_logo": "assets/imgs/logo.png",
     
 }

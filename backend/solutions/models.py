@@ -6,6 +6,7 @@ class Solution(models.Model):
     title = models.CharField(max_length=100)
     intro = models.CharField(max_length=200)
     intro_image = models.ImageField(upload_to='solutions/intro_images/', blank=True, null=True)
+    datafile = models.FileField(upload_to='solutions/datafiles/', null=True, blank=True)  
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, editable=False,related_name='solution_created')
     created_date = models.DateTimeField(default=timezone.now, editable=False)
     updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, editable=False, related_name='solution_updated')

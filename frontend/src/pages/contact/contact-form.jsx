@@ -81,6 +81,7 @@ function ContactForm({ serviceId = null, solutionId = null }) {
         rows='10'
         value={contactForm.message}
         onChange={handleChangeContact}
+        required
         placeholder='Enter Your Message...'
       ></textarea>
       <div className='my-8 flex items-center'>
