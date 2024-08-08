@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import LazyLoad from 'react-lazyload';
-import thumbsupImg from '../../../assets/images/home/Thumbsup.png';
+import thumbsupImg from '../../../assets/images/home/lock.png';
 import siem from '../../../assets/images/solutions/folder.png';
 import waf from '../../../assets/images/solutions/wall.png';
 import nips from '../../../assets/images/solutions/prevention.png';

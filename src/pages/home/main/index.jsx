@@ -13,7 +13,7 @@ function Main() {
       <LazyLoad className='pb-32' {...lazyLoadOptions}>
         <OurServices />
       </LazyLoad>
-      <LazyLoad className='pb-32' {...lazyLoadOptions}>
+      <LazyLoad className='pb-32 mt-20' {...lazyLoadOptions}>
         <OurSolutions />
       </LazyLoad>
     </main>

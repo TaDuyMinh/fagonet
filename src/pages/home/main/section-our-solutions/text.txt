@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import vectorImg from '../../../../assets/images/home/Vector.png';
 import vectorHoverImg from '../../../../assets/images/home/VectorHover.png';
-import earthImg from '../../../../assets/images/home/protect.png';
+import earthImg from '../../../../assets/images/home/Thumbsup1.png';
 import LazyLoad from 'react-lazyload';
 import Spinner from '../../../../components/spinner';
 import './section.css';
@@ -28,22 +28,20 @@ function OurSolutions() {
   };
 
   return (
-    
-    <section className='home-page-solutions container Up w-4/5 m-auto pb-32 flex xl:flex-row-reverse flex-col justify-between items-center'>
-
+    <section className='home-page-solutions container w-4/5 m-auto pb-32 flex xl:flex-row-reverse flex-col justify-between items-center'>
       <div className='xl:w-1/2'>
-          <h3 className='h-[100px] m-auto xl:text-[72px] lg:text-[64px] md:text-[52px] text-[32px] text-center md:tracking-[16px] tracking-[12px] font-bold uppercase'>
-            {t('SOLUTIONS')}
-          </h3>
-          <p className='md:w-[510px] w-4/5 sm:h-[69px] mx-auto my-4 md:text-[20px] text-[18px] leading-[23.48px] capitalize'>
-            {t('solutions-intro')}
-          </p>
+        <h3 className='h-[100px] m-auto xl:text-[72px] lg:text-[64px] md:text-[52px] text-[32px] text-center md:tracking-[16px] tracking-[12px] font-bold uppercase'>
+          {t('SOLUTIONS')}
+        </h3>
+        <p className='md:w-[510px] w-4/5 sm:h-[69px] mx-auto my-4 md:text-[20px] text-[18px] leading-[23.48px] capitalize'>
+          {t('solutions-intro')}
+        </p>
         <LazyLoad offset={100} once placeholder={<Spinner />}>
           <img className='m-auto Scale' src={earthImg} alt='earth-img' />
         </LazyLoad>
       </div>
 
-
+      {/* <div className='home-solutions xl:w-1/2 text-black'> */}
         <div className="timeline">
           <div className="container">
             {introSolutions.map((solution, index) => {
@@ -51,9 +49,11 @@ function OurSolutions() {
               return (
                 
                 <div className={`timeline-item ${isEven ? 'even' : 'odd'}`} key={solution.id}>
-                  <div className="timeline-img" />
+                  {/* <div className="timeline-img" /> */}
                   
                   <div className={`timeline-content ${isEven ? 'js--fadeInRight' : 'js--fadeInLeft'}`}>
+                    <h2>{solution.content}</h2>
+        
                     <Link
                       key={solution.id}
                       className={`relative ${
@@ -66,14 +66,13 @@ function OurSolutions() {
                       onClick={handleClick}
                       to={`/solutions/${solution.url}`}
                     >
-                      <LazyLoad className='h-1/2' offset={100} once>
+                     <LazyLoad className='h-1/2' offset={100} once>
                         <img
                           className='w-[40px] mr-auto Scale'
                           src={hoverSolutions === solution.id ? vectorHoverImg : vectorImg}
                           alt='vector-img'
                         />
                       </LazyLoad>
-                    <h2 className='font-bold mb-4'>{solution.content}</h2>
                     </Link>
                   </div>
                 </div>
@@ -81,6 +80,7 @@ function OurSolutions() {
             })}
           </div>
         </div>
+      {/* </div> */}
     </section>
   );
 }
